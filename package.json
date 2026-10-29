@@ -1,0 +1,58 @@
+{
+  "name": "dsh-firefly-pet",
+  "version": "0.1.0",
+  "description": "流萤桌宠：透明置顶的桌面伴侣，能聊天、会碎碎念、播报任务进度。 / Firefly desktop pet for DeepSeek Harness: transparent always-on-top companion with chat, idle chatter and task narration.",
+  "type": "module",
+  "main": "lib/index.js",
+  "exports": {
+    ".": "./lib/index.js",
+    "./cordis.patch.yml": "./cordis.patch.yml",
+    "./package.json": "./package.json"
+  },
+  "files": [
+    "lib",
+    "runtime",
+    "assets",
+    "cordis.patch.yml",
+    "README.md",
+    "LICENSE"
+  ],
+  "keywords": [
+    "dsh",
+    "dsh-plugin",
+    "deepseek-harness",
+    "desktop-pet",
+    "firefly",
+    "桌宠"
+  ],
+  "icon": "assets/icon.png",
+  "author": "Firefly26710Lover",
+  "homepage": "https://github.com/Firefly26710Lover/dsh-firefly-pet#readme",
+  "repository": {
+    "type": "git",
+    "url": "git+https://github.com/Firefly26710Lover/dsh-firefly-pet.git"
+  },
+  "bugs": {
+    "url": "https://github.com/Firefly26710Lover/dsh-firefly-pet/issues"
+  },
+  "engines": {
+    "node": ">=22.12.0"
+  },
+  "dsh": {
+    "bundle": {
+      "patch": "./cordis.patch.yml"
+    },
+    "compatibility": {
+      "dshReleases": {
+        "0.2.0-rc.1": "unknown",
+        "0.2.0-rc.2": "unknown",
+        "0.2.1-rc.2": "unknown",
+        "0.2.1-rc.3": "compatible"
+      }
+    }
+  },
+  "dependencies": {
+    "@deepseek-ai/dsh-llm": "0.2.1-rc.3"
+  },
+  "license": "MIT"
+}

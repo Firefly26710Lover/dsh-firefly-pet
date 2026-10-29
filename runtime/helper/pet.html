@@ -1,0 +1,183 @@
+<!doctype html>
+<html lang="zh-CN">
+<head>
+  <meta charset="utf-8" />
+  <style>
+    html,
+    body {
+      margin: 0;
+      padding: 0;
+      background: transparent;
+      overflow: hidden;
+      user-select: none;
+      -webkit-user-select: none;
+      font-family: "Microsoft YaHei", "PingFang SC", system-ui, sans-serif;
+    }
+
+    body {
+      width: 100vw;
+      height: 100vh;
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: flex-end;
+    }
+
+    /* 会话标签：说明这条播报来自哪个对话框 */
+    #bubble-tag {
+      display: none;
+      max-width: 200px;
+      margin-bottom: 4px;
+      padding: 2px 8px;
+      border-radius: 8px;
+      background: rgba(20, 22, 30, 0.78);
+      color: #9fb0cc;
+      font-size: 10px;
+      line-height: 1.7;
+      white-space: nowrap;
+      overflow: hidden;
+      text-overflow: ellipsis;
+      box-shadow: 0 4px 12px rgba(0, 0, 0, 0.24);
+    }
+
+    #bubble-tag.show {
+      display: block;
+    }
+
+    /* 气泡：宠物上方，最多 132px 高，超出滚动 */
+    #bubble {
+      display: none;
+      width: 220px;
+      max-height: 132px;
+      overflow-y: auto;
+      box-sizing: border-box;
+      margin-bottom: 6px;
+      padding: 8px 10px;
+      border-radius: 12px;
+      background: rgba(20, 22, 30, 0.86);
+      color: #f4f6fb;
+      font-size: 13px;
+      line-height: 1.55;
+      white-space: pre-wrap;
+      word-break: break-word;
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    #bubble.show {
+      display: block;
+    }
+
+    #bubble.err {
+      color: #ff9a9a;
+    }
+
+    /* 输入条：点击宠物后出现 */
+    #composer {
+      display: none;
+      gap: 6px;
+      align-items: center;
+      width: 220px;
+      box-sizing: border-box;
+      margin-bottom: 6px;
+      padding: 4px 6px;
+      border-radius: 10px;
+      background: rgba(20, 22, 30, 0.92);
+      box-shadow: 0 6px 18px rgba(0, 0, 0, 0.28);
+    }
+
+    #composer.show {
+      display: flex;
+    }
+
+    #text {
+      flex: 1;
+      min-width: 0;
+      border: none;
+      outline: none;
+      background: transparent;
+      color: #fff;
+      font-size: 13px;
+      padding: 5px 4px;
+    }
+
+    #text::placeholder {
+      color: #8b93a7;
+    }
+
+    #send {
+      border: none;
+      border-radius: 8px;
+      background: #3b6cf6;
+      color: #fff;
+      font-size: 12px;
+      padding: 4px 9px;
+      cursor: pointer;
+    }
+
+    #send:disabled {
+      opacity: 0.45;
+      cursor: default;
+    }
+
+    /* 双层宠物：待机层常驻，动作层叠在上面做淡入淡出，切换不再硬切 */
+    #stage {
+      position: relative;
+      flex: 0 0 auto;
+    }
+
+    .layer {
+      position: absolute;
+      inset: 0;
+      width: 100%;
+      height: 100%;
+      object-fit: contain;
+      -webkit-user-drag: none;
+      display: block;
+    }
+
+    #pet {
+      cursor: grab;
+      z-index: 1;
+      /* 收尾时先等动作层淡出（220ms），再淡入，与进入对称 */
+      transition: opacity 220ms ease 220ms;
+    }
+
+    #pet.dragging {
+      cursor: grabbing;
+    }
+
+    /* 播动作时待机层淡出：两层都是透明底，叠着会出双影 */
+    #pet.away {
+      opacity: 0;
+      /* 进入动作时立刻开始淡出，不等 */
+      transition-delay: 0ms;
+    }
+
+    #pet-action {
+      opacity: 0;
+      z-index: 2;
+      pointer-events: none;
+      transition: opacity 220ms ease;
+    }
+
+    #pet-action.on {
+      opacity: 1;
+      /* 待机先退、动作稍后再进，减少两层同时半透明的重叠窗口 */
+      transition-delay: 220ms;
+    }
+  </style>
+</head>
+<body>
+  <div id="bubble-tag"></div>
+  <div id="bubble"></div>
+  <form id="composer">
+    <input id="text" placeholder="和流萤说点什么…（Esc 关闭）" autocomplete="off" />
+    <button id="send" type="submit">↵</button>
+  </form>
+  <div id="stage">
+    <img id="pet" class="layer" alt="firefly" />
+    <img id="pet-action" class="layer" alt="" />
+  </div>
+  <script src="./pet.js"></script>
+</body>
+</html>
