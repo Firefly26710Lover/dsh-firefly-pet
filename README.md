@@ -4,7 +4,18 @@
 
 **中文** | [English](#english)
 
-![预览](assets/preview.png)
+<p align="center">
+  <img src="assets/preview.png" width="260" alt="流萤桌宠待机">
+</p>
+
+<table>
+  <tr>
+    <td align="center" width="25%"><img src="assets/shot-action.png" width="200"><br><sub><b>单击</b>：随机换一个动作</sub></td>
+    <td align="center" width="25%"><img src="assets/shot-notify.png" width="200"><br><sub><b>任务播报</b>：带会话标签</sub></td>
+    <td align="center" width="25%"><img src="assets/shot-whisper.png" width="200"><br><sub><b>碎碎念</b>：定时自己说一句</sub></td>
+    <td align="center" width="25%"><img src="assets/shot-balance.png" width="200"><br><sub><b>余额</b>：右键查看账户余额</sub></td>
+  </tr>
+</table>
 
 ## 它是什么
 
